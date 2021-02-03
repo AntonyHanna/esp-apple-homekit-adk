@@ -448,7 +448,7 @@ static const HAPStringCharacteristic heaterCoolerNameCharacteristic = {
 /**
  * The 'Active' characteristic of the Heater Cooler service.
  */
-const HAPBoolCharacteristic heaterCoolerActiveCharacteristic = {
+const HAPUInt8Characteristic heaterCoolerActiveCharacteristic = {
     .format = kHAPCharacteristicFormat_UInt8,
     .iid = kIID_HeaterCoolerActive,
     .characteristicType = &kHAPCharacteristicType_Active,
@@ -472,7 +472,7 @@ const HAPBoolCharacteristic heaterCoolerActiveCharacteristic = {
 /**
  * The 'Current Temperature' characteristic of the Heater Cooler service.
  */
-const HAPBoolCharacteristic heaterCoolerCurrentTemperatureCharacteristic = {
+const HAPFloatCharacteristic heaterCoolerCurrentTemperatureCharacteristic = {
     .format = kHAPCharacteristicFormat_Float,
     .iid = kIID_HeaterCoolerCurrentTemperature,
     .characteristicType = &kHAPCharacteristicType_CurrentTemperature,
@@ -495,7 +495,7 @@ const HAPBoolCharacteristic heaterCoolerCurrentTemperatureCharacteristic = {
 /**
  * The 'Current Heater Cooler State' characteristic of the Heater Cooler service.
  */
-const HAPBoolCharacteristic heaterCoolerCurrentHeaterCoolerStateCharacteristic = {
+const HAPUInt8Characteristic heaterCoolerCurrentHeaterCoolerStateCharacteristic = {
     .format = kHAPCharacteristicFormat_UInt8,
     .iid = kIID_HeaterCoolerCurrentHeaterCoolerState,
     .characteristicType = &kHAPCharacteristicType_CurrentHeaterCoolerState,
@@ -518,7 +518,7 @@ const HAPBoolCharacteristic heaterCoolerCurrentHeaterCoolerStateCharacteristic =
 /**
  * The 'Target Heater Cooler State' characteristic of the Heater Cooler service.
  */
-const HAPBoolCharacteristic heaterCoolerTargetHeaterCoolerStateCharacteristic = {
+const HAPUInt8Characteristic heaterCoolerTargetHeaterCoolerStateCharacteristic = {
     .format = kHAPCharacteristicFormat_UInt8,
     .iid = kIID_HeaterCoolerTargetState,
     .characteristicType = &kHAPCharacteristicType_TargetHeaterCoolerState,
@@ -541,7 +541,7 @@ const HAPBoolCharacteristic heaterCoolerTargetHeaterCoolerStateCharacteristic = 
 /**
  * The 'Cooling Threshold Temperature' characteristic of the Heater Cooler service.
  */
-const HAPBoolCharacteristic heaterCoolerCoolingThresholdTemperatureCharacteristic = {
+const HAPFloatCharacteristic heaterCoolerCoolingThresholdTemperatureCharacteristic = {
     .format = kHAPCharacteristicFormat_Float,
     .iid = kIID_HeaterCoolerCoolingThresholdTemperature,
     .characteristicType = &kHAPCharacteristicType_CoolingThresholdTemperature,
@@ -564,7 +564,7 @@ const HAPBoolCharacteristic heaterCoolerCoolingThresholdTemperatureCharacteristi
 /**
  * The 'Heating Threshold Temperature' characteristic of the Heater Cooler service.
  */
-const HAPBoolCharacteristic heaterCoolerHeatingThresholdTemperatureCharacteristic = {
+const HAPFloatCharacteristic heaterCoolerHeatingThresholdTemperatureCharacteristic = {
     .format = kHAPCharacteristicFormat_Float,
     .iid = kIID_HeaterCoolerHeatingThresholdTemperature,
     .characteristicType = &kHAPCharacteristicType_HeatingThresholdTemperature,
@@ -582,4 +582,31 @@ const HAPBoolCharacteristic heaterCoolerHeatingThresholdTemperatureCharacteristi
                              .readableWithoutSecurity = false,
                              .writableWithoutSecurity = false } },
     .callbacks = { .handleRead = HandleHeaterCoolerHeatingThresholdTemperatureRead, .handleWrite = HandleHeaterCoolerHeatingThresholdTemperatureWrite }
+};
+
+/**
+ * The Heat Cooler service that contains the following characteristics 
+ * Active, 
+ * Current Temperature
+ * Currrent Heater Cooler State
+ * Target Heater Cooler State
+ * Cooling Threshold Temperature
+ * Heating Threshold Temperature
+ */
+const HAPService heaterCoolerService = {
+    .iid = KIID_HeaterCooler,
+    .serviceType = &kHAPServiceType_HeaterCooler,
+    .debugDescription = kHAPServiceDebugDescription_HeaterCooler,
+    .name = "Air Conditioner",
+    .properties = { .primaryService = true, .hidden = false, .ble = { .supportsConfiguration = false } },
+    .linkedServices = NULL,
+    .characteristics = (const HAPCharacteristic* const[]) { &heaterCoolerServiceSignatureCharacteristic,
+                                                            &heaterCoolerNameCharacteristic,
+                                                            &heaterCoolerActiveCharacteristic,
+                                                            &heaterCoolerCurrentTemperatureCharacteristic,
+                                                            &heaterCoolerCurrentHeaterCoolerStateCharacteristic,
+                                                            &heaterCoolerTargetHeaterCoolerStateCharacteristic,
+                                                            &heaterCoolerCoolingThresholdTemperatureCharacteristic,
+                                                            &heaterCoolerHeatingThresholdTemperatureCharacteristic,
+                                                            NULL }
 };
