@@ -465,6 +465,11 @@ const HAPUInt8Characteristic heaterCoolerActiveCharacteristic = {
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,
                              .writableWithoutSecurity = false } },
+    .constraints = { .minimumValue = 0,
+                     .maximumValue = 1,
+                     .stepValue = 1,
+                     .validValues = NULL,
+                     .validValuesRanges = NULL },
     .callbacks = { .handleRead = HandleHeaterCoolerActiveRead, .handleWrite = HandleHeaterCoolerActiveWrite }
 };
 
@@ -479,7 +484,7 @@ const HAPFloatCharacteristic heaterCoolerCurrentTemperatureCharacteristic = {
     .debugDescription = kHAPCharacteristicDebugDescription_CurrentTemperature,
     .manufacturerDescription = NULL,
     .properties = { .readable = true,
-                    .writable = true,
+                    .writable = false,
                     .supportsEventNotification = true,
                     .hidden = false,
                     .requiresTimedWrite = false,
@@ -489,6 +494,10 @@ const HAPFloatCharacteristic heaterCoolerCurrentTemperatureCharacteristic = {
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,
                              .writableWithoutSecurity = false } },
+    .units = kHAPCharacteristicUnits_Celsius,
+    .constraints = { .minimumValue = 0,
+                     .maximumValue = 100,
+                     .stepValue = 0.1 },
     .callbacks = { .handleRead = HandleHeaterCoolerCurrentTemperatureRead, .handleWrite = HandleHeaterCoolerCurrentTemperatureWrite }
 };
 
@@ -502,7 +511,7 @@ const HAPUInt8Characteristic heaterCoolerCurrentHeaterCoolerStateCharacteristic 
     .debugDescription = kHAPCharacteristicDebugDescription_CurrentHeaterCoolerState,
     .manufacturerDescription = NULL,
     .properties = { .readable = true,
-                    .writable = true,
+                    .writable = false,
                     .supportsEventNotification = true,
                     .hidden = false,
                     .requiresTimedWrite = false,
@@ -512,6 +521,11 @@ const HAPUInt8Characteristic heaterCoolerCurrentHeaterCoolerStateCharacteristic 
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,
                              .writableWithoutSecurity = false } },
+    .constraints = { .minimumValue = 0,
+                     .maximumValue = 3,
+                     .stepValue = 1,
+                     .validValues = NULL,
+                     .validValuesRanges = NULL },
     .callbacks = { .handleRead = HandleHeaterCoolerCurrentStateRead, .handleWrite = HandleHeaterCoolerCurrentStateWrite }
 };
 
@@ -535,6 +549,12 @@ const HAPUInt8Characteristic heaterCoolerTargetHeaterCoolerStateCharacteristic =
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,
                              .writableWithoutSecurity = false } },
+    .units = kHAPCharacteristicUnits_None,
+    .constraints = { .minimumValue = 0,
+                     .maximumValue = 2,
+                     .stepValue = 1,
+                     .validValues = NULL,
+                     .validValuesRanges = NULL },
     .callbacks = { .handleRead = HandleHeaterCoolerTargetStateRead, .handleWrite = HandleHeaterCoolerTargetStateWrite }
 };
 
@@ -558,6 +578,10 @@ const HAPFloatCharacteristic heaterCoolerCoolingThresholdTemperatureCharacterist
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,
                              .writableWithoutSecurity = false } },
+    .units = kHAPCharacteristicUnits_Celsius,
+    .constraints = { .minimumValue = 0,
+                     .maximumValue = 30,
+                     .stepValue = 0.1 },
     .callbacks = { .handleRead = HandleHeaterCoolerCoolingThresholdTemperatureRead, .handleWrite = HandleHeaterCoolerCoolingThresholdTemperatureWrite }
 };
 
@@ -581,6 +605,10 @@ const HAPFloatCharacteristic heaterCoolerHeatingThresholdTemperatureCharacterist
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,
                              .writableWithoutSecurity = false } },
+    .units = kHAPCharacteristicUnits_Celsius,
+    .constraints = { .minimumValue = 0,
+                     .maximumValue = 25,
+                     .stepValue = 0.1 },
     .callbacks = { .handleRead = HandleHeaterCoolerHeatingThresholdTemperatureRead, .handleWrite = HandleHeaterCoolerHeatingThresholdTemperatureWrite }
 };
 
