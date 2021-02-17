@@ -121,7 +121,7 @@ static void SaveAccessoryState(void) {
 
 //----------------------------------------------------------------------------------------------------------------------
 /**
- * HomeKit accessory that provides the Light Bulb service.
+ * HomeKit accessory that provides the Heater Cooler service.
  *
  * Note: Not constant to enable BCT Manual Name Change.
  */
@@ -244,16 +244,15 @@ HAPError HandleHeaterCoolerActiveWrite(
 HAP_RESULT_USE_CHECK
 HAPError HandleHeaterCoolerCurrentTemperatureWrite(
         HAPAccessoryServerRef* server,
-        const HAPFloatCharacteristicWriteRequest* request,
-        float value,
-        void* _Nullable context HAP_UNUSED) {
+        const HAPCharacteristic* characteristic,
+        float value) {
 	HAPLogInfo(&kHAPLog_Default, "%s: %s", __func__, value ? "true" : "false");
 	if(accessoryConfiguration.state.currentTemperature != value) {
 		accessoryConfiguration.state.currentTemperature = value;
 
 		SaveAccessoryState();
 		
-		HAPAccessoryServerRaiseEvent(server, request->characteristic, request->service, request->accessory);
+		HAPAccessoryServerRaiseEvent(server, characteristic, accessory.services[3], &accessory);
 	}
 
 	return kHAPError_None;

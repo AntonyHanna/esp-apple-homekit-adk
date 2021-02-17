@@ -498,7 +498,7 @@ const HAPFloatCharacteristic heaterCoolerCurrentTemperatureCharacteristic = {
     .constraints = { .minimumValue = 0,
                      .maximumValue = 100,
                      .stepValue = 0.1 },
-    .callbacks = { .handleRead = HandleHeaterCoolerCurrentTemperatureRead, .handleWrite = HandleHeaterCoolerCurrentTemperatureWrite }
+    .callbacks = { .handleRead = HandleHeaterCoolerCurrentTemperatureRead, .handleWrite = NULL }
 };
 
 /**
@@ -511,12 +511,12 @@ const HAPUInt8Characteristic heaterCoolerCurrentHeaterCoolerStateCharacteristic 
     .debugDescription = kHAPCharacteristicDebugDescription_CurrentHeaterCoolerState,
     .manufacturerDescription = NULL,
     .properties = { .readable = true,
-                    .writable = false,
+                    .writable = true,
                     .supportsEventNotification = true,
                     .hidden = false,
                     .requiresTimedWrite = false,
                     .supportsAuthorizationData = false,
-                    .ip = { .controlPoint = false, .supportsWriteResponse = false },
+                    .ip = { .controlPoint = false, .supportsWriteResponse = true },
                     .ble = { .supportsBroadcastNotification = true,
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,
@@ -544,7 +544,7 @@ const HAPUInt8Characteristic heaterCoolerTargetHeaterCoolerStateCharacteristic =
                     .hidden = false,
                     .requiresTimedWrite = false,
                     .supportsAuthorizationData = false,
-                    .ip = { .controlPoint = false, .supportsWriteResponse = false },
+                    .ip = { .controlPoint = false, .supportsWriteResponse = true },
                     .ble = { .supportsBroadcastNotification = true,
                              .supportsDisconnectedNotification = true,
                              .readableWithoutSecurity = false,

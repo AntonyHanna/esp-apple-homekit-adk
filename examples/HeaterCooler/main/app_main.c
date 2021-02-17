@@ -29,6 +29,8 @@
 #endif
 
 #include <signal.h>
+#include <unistd.h>
+
 static bool requestedFactoryReset = false;
 static bool clearPairings = false;
 
@@ -299,8 +301,7 @@ static void InitializeBLE() {
 }
 #endif
 
-void main_task()
-{
+void main_task() {
     HAPAssert(HAPGetCompatibilityVersion() == HAP_COMPATIBILITY_VERSION);
 
     // Initialize global platform objects.
@@ -344,7 +345,28 @@ void main_task()
     DeinitializePlatform();
 }
 
-void app_main()
-{
-    xTaskCreate(main_task, "main_task", 6 * 1024, NULL, 6, NULL);
+void accessory_montior() {
+    sleep(5);
+    HAPLogInfo(&kHAPLog_Default, "Now Monitoring Values!");
+
+    HAPError err;
+    const HAPAccessory* accessory = AppGetAccessoryInfo();
+    float tmp_ctr = 0;
+    while(1) { 
+        err = HandleHeaterCoolerCurrentTemperatureWrite( &accessoryServer,
+                                                         accessory->services[3]->characteristics[3],
+                                                         tmp_ctr);
+        if(err) {
+            HAPLogInfo(&kHAPLog_Default, "Error occurred maybe?");
+        }
+        tmp_ctr++;
+        sleep(5);
+    }
 }
+
+void app_main() {
+    xTaskCreate(main_task, "main_task", 5 * 1024, NULL, 6, NULL);
+    xTaskCreate(accessory_montior, "accessory_monitor", 5 * 1024,  NULL, 6, NULL);
+}
+
+
