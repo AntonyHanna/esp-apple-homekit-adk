@@ -242,23 +242,6 @@ HAPError HandleHeaterCoolerActiveWrite(
 }
 
 HAP_RESULT_USE_CHECK
-HAPError HandleHeaterCoolerCurrentTemperatureWrite(
-        HAPAccessoryServerRef* server,
-        const HAPCharacteristic* characteristic,
-        float value) {
-	HAPLogInfo(&kHAPLog_Default, "%s: %s", __func__, value ? "true" : "false");
-	if(accessoryConfiguration.state.currentTemperature != value) {
-		accessoryConfiguration.state.currentTemperature = value;
-
-		SaveAccessoryState();
-		
-		HAPAccessoryServerRaiseEvent(server, characteristic, accessory.services[3], &accessory);
-	}
-
-	return kHAPError_None;
-}
-
-HAP_RESULT_USE_CHECK
 HAPError HandleHeaterCoolerCurrentStateWrite(
         HAPAccessoryServerRef* server,
         const HAPUInt8CharacteristicWriteRequest* request,

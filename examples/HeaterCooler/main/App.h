@@ -101,16 +101,7 @@ HAPError HandleHeaterCoolerActiveWrite(
         const HAPUInt8CharacteristicWriteRequest* request,
         uint8_t value,
         void* _Nullable context);
-
-/**
- * Handle write request to the 'Current Temperature' characteristic of the Heater Cooler service.
- */
-HAP_RESULT_USE_CHECK
-HAPError HandleHeaterCoolerCurrentTemperatureWrite(
-        HAPAccessoryServerRef* server,
-        const HAPCharacteristic* characteristic,
-        float value);
-
+        
 /**
  * Handle write request to the 'Current Heater Cooler State' characteristic of the Heater Cooler service.
  */
