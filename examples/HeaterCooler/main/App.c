@@ -129,7 +129,7 @@ static HAPAccessory accessory = { .aid = 1,
 								  .category = kHAPAccessoryCategory_AirConditioners,
                                   .name = "Mitsubishi Air Conditioner",
                                   .manufacturer = "Mitsubishi",
-                                  .model = "LightBulb1,1",
+                                  .model = "AirConditioner,1",
                                   .serialNumber = "099DB48E9E28",
                                   .firmwareVersion = "1",
                                   .hardwareVersion = "1",
@@ -138,7 +138,7 @@ static HAPAccessory accessory = { .aid = 1,
                                                                             &pairingService,
                                                                             &heaterCoolerService,
                                                                             NULL },
-                                  .callbacks = { .identify = IdentifyAccessory } };
+                                  .callbacks = { .identify = IdentifyAccessory} };
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -169,10 +169,10 @@ HAPError HandleHeaterCoolerCurrentTemperatureRead(
         const HAPFloatCharacteristicReadRequest* request,
         float* value,
         void* _Nullable context) {
-	*value = accessoryConfiguration.state.currentTemperature;
+	*value = rand() % 100;
 	HAPLogInfo(&kHAPLog_Default, "%s: %s", __func__, *value ? "true" : "false");
-
-	return kHAPError_None;
+	
+    return kHAPError_None;
 }
 
 HAP_RESULT_USE_CHECK
@@ -182,7 +182,7 @@ HAPError HandleHeaterCoolerCurrentStateRead(
         uint8_t* value,
         void* _Nullable context) {
 	*value = accessoryConfiguration.state.currentHeaterCoolerState;
-	HAPLogInfo(&kHAPLog_Default, "%s: %s", __func__, *value ? "true" : "false");
+	HAPLogInfo(&kHAPLog_Default, "%s: %i", __func__, *value);
 
 	return kHAPError_None;
 }
@@ -194,7 +194,7 @@ HAPError HandleHeaterCoolerTargetStateRead(
         uint8_t* value,
         void* _Nullable context) {
 	*value = accessoryConfiguration.state.targetHeaterCoolerState;
-	HAPLogInfo(&kHAPLog_Default, "%s: %s", __func__, *value ? "true" : "false");
+	HAPLogInfo(&kHAPLog_Default, "%s: %i", __func__, *value);
 
 	return kHAPError_None;
 }
