@@ -18,6 +18,8 @@ extern "C" {
 #endif
 
 #include "HAP.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #if __has_feature(nullability)
 #pragma clang assume_nonnull begin
@@ -178,6 +180,8 @@ void RestorePlatformFactorySettings(void);
  * Returns pointer to accessory information
  */
 const HAPAccessory* AppGetAccessoryInfo();
+
+void *TemperatureMonitor(void* _Nullable context, size_t contextSize);
 
 #if __has_feature(nullability)
 #pragma clang assume_nonnull end

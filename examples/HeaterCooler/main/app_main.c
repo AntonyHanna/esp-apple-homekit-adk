@@ -347,19 +347,11 @@ void main_task() {
 
 void accessory_montior() {
     sleep(5);
-    HAPLogInfo(&kHAPLog_Default, "Now Monitoring Values!");
-
-    HAPError err;
-    const HAPAccessory* accessory = AppGetAccessoryInfo();
-    float tmp_ctr = 0;
+    HAPLogInfo(&kHAPLog_Default, "Now Monitoring the Accessorys state!");
     while(1) { 
-        err = HandleHeaterCoolerCurrentTemperatureWrite( &accessoryServer,
-                                                         accessory->services[3]->characteristics[3],
-                                                         tmp_ctr);
-        if(err) {
-            HAPLogInfo(&kHAPLog_Default, "Error occurred maybe?");
+        if(HAPPlatformRunLoopScheduleCallback(TemperatureMonitor, NULL, 0) != kHAPError_None) {
+            HAPLogInfo(&kHAPLog_Default, "Error occurred!!");
         }
-        tmp_ctr++;
         sleep(5);
     }
 }

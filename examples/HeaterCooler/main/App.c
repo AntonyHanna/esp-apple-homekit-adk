@@ -334,6 +334,7 @@ void AppCreate(HAPAccessoryServerRef* server, HAPPlatformKeyValueStoreRef keyVal
     HAPRawBufferZero(&accessoryConfiguration, sizeof accessoryConfiguration);
     accessoryConfiguration.server = server;
     accessoryConfiguration.keyValueStore = keyValueStore;
+    
     LoadAccessoryState();
 }
 
@@ -371,10 +372,17 @@ const HAPAccessory* AppGetAccessoryInfo() {
     return &accessory;
 }
 
+void* TemperatureMonitor(void* _Nullable context, size_t contextSize) {
+    HAPAccessoryServerRaiseEvent(accessoryConfiguration.server, 
+    &heaterCoolerCurrentTemperatureCharacteristic, &heaterCoolerService, AppGetAccessoryInfo());
+
+    return kHAPError_None;
+}
+
 void AppInitialize(
         HAPAccessoryServerOptions* hapAccessoryServerOptions,
         HAPPlatform* hapPlatform,
-        HAPAccessoryServerCallbacks* hapAccessoryServerCallbacks) {
+        HAPAccessoryServerCallbacks* hapAccessoryServerCallbacks) {         
     /*no-op*/
 }
 
